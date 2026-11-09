@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Understand social engineering, recognize manipulation techniques, and protect yourself.">
+  <title>SE / AWARE — Social Engineering</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #eeeeee;
+      background: #080a09;
+      font-synthesis: none;
+      scroll-behavior: smooth;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { min-width: 320px; }
+    a { color: inherit; text-decoration: none; }
+    .website { overflow: hidden; }
+    .navbar {
+      height: 80px; padding: 0 8%; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid #202521;
+    }
+    .logo {
+      font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500;
+      letter-spacing: 2px;
+    }
+    .logo span { color: #8be36b; }
+    .nav-links { display: flex; gap: 35px; color: #a4aaa5; font-size: 14px; }
+    .nav-links a:hover { color: #8be36b; }
+    .nav-button { border: 1px solid #8be36b; color: #8be36b; padding: 11px 18px; font-size: 13px; }
+    .hero {
+      min-height: 680px; padding: 100px 8% 65px; position: relative;
+      display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 55px;
+    }
+    .eyebrow {
+      color: #8be36b; font-family: 'DM Mono', monospace; font-size: 12px;
+      letter-spacing: 2px; margin-bottom: 25px;
+    }
+    .hero h1 { font-size: clamp(45px, 6vw, 76px); line-height: 1.08; letter-spacing: -3px; font-weight: 600; }
+    .hero h1 span, .section h2 span { color: #8be36b; }
+    .hero-description {
+      color: #a5aaa6; max-width: 510px; line-height: 1.9;
+      font-size: 15px; margin-top: 25px;
+    }
+    .hero-actions { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 35px; }
+    .primary-button, .secondary-button { padding: 15px 22px; font-size: 13px; }
+    .primary-button { background: #8be36b; color: #080a09; }
+    .secondary-button { border: 1px solid #414943; }
+    .hero-image { display: flex; justify-content: center; }
+    .hero-image img { width: 100%; max-width: 390px; height: auto; display: block; border: 1px solid #222822; }
+    .hero-bottom {
+      position: absolute; bottom: 25px; left: 8%; right: 8%; display: flex;
+      justify-content: space-between; color: #68716a;
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+    }
+    .section { padding: 110px 8%; }
+    .section h2 { font-size: clamp(34px, 5vw, 55px); letter-spacing: -2px; }
+    .about { background: #0e120f; }
+    .about-text { max-width: 750px; margin-top: 25px; color: #a5aaa6; line-height: 2; font-size: 16px; }
+    .stat-grid {
+      margin-top: 65px; display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid #303831;
+    }
+    .stat-grid div { padding: 30px 15px 10px 0; }
+    .stat-grid h3 { color: #8be36b; font-size: 35px; margin-bottom: 10px; }
+    .stat-grid p { color: #9ba39c; font-size: 13px; }
+    .section-description { color: #a5aaa6; margin-top: 15px; line-height: 1.8; }
+    .technique-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 45px; }
+    .technique-card {
+      position: relative; min-height: 220px; padding: 28px;
+      border: 1px solid #29312b; background: #0d110e;
+      transition: border-color .2s, transform .2s;
+    }
+    .technique-card:hover { border-color: #8be36b; transform: translateY(-4px); }
+    .card-number { color: #8be36b; font-family: 'DM Mono', monospace; font-size: 13px; }
+    .card-tag { float: right; font-family: 'DM Mono', monospace; font-size: 9px; color: #7f8981; letter-spacing: 1px; }
+    .technique-card h3 { font-size: 22px; margin-top: 35px; }
+    .technique-card p { color: #9da59e; font-size: 13px; line-height: 1.8; margin-top: 12px; }
+    .defense { background: #0e120f; }
+    .defense-grid { margin-top: 50px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; }
+    .defense-grid div { border-left: 2px solid #8be36b; padding: 5px 0 5px 20px; }
+    .defense-grid h3 { font-size: 18px; margin-bottom: 10px; }
+    .defense-grid p { color: #a5aaa6; font-size: 14px; line-height: 1.8; max-width: 450px; }
+    .checklist {
+      margin-top: 55px; padding: 30px; border: 1px solid #29312b;
+      max-width: 760px; background: #0a0e0b;
+    }
+    .checklist h3 { margin-bottom: 18px; }
+    .checklist label { display: flex; gap: 12px; align-items: flex-start; color: #a5aaa6; margin: 14px 0; font-size: 14px; line-height: 1.6; cursor: pointer; }
+    .checklist input { accent-color: #8be36b; margin-top: 4px; }
+    .checklist-status { color: #8be36b; font: 12px 'DM Mono', monospace; margin-top: 20px; }
+    footer {
+      padding: 45px 8%; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px; border-top: 1px solid #29312b;
+    }
+    footer p, .copyright { color: #8b948d; font-size: 12px; }
+    .copyright { font-family: 'DM Mono', monospace; }
+    @media (max-width: 800px) {
+      .navbar { padding: 0 5%; }
+      .nav-links { gap: 15px; }
+      .hero { grid-template-columns: 1fr; padding: 80px 6%; gap: 45px; }
+      .hero-image img { max-width: 350px; }
+      .hero-bottom { display: none; }
+      .section { padding: 80px 6%; }
+      .technique-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .navbar { height: 70px; }
+      .nav-links { display: none; }
+      .hero h1 { letter-spacing: -2px; }
+      .technique-grid, .defense-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { text-align: center; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="website">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#" class="logo"><span>SE</span> / AWARE</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#techniques">Techniques</a>
+        <a href="#defense">Protection</a>
+      </div>
+      <a href="#defense" class="nav-button">Stay Informed ↗</a>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">CYBERSECURITY / HUMAN SECURITY</p>
+        <h1>The human mind<br>is the <span>real target.</span></h1>
+        <p class="hero-description">
+          Social engineering exploits human trust, emotions and behaviour to gain
+          access to information and systems. Understand the psychology. Recognize
+          the manipulation. Protect yourself.
+        </p>
+        <div class="hero-actions">
+          <a href="#about" class="primary-button">Explore the topic →</a>
+          <a href="#techniques" class="secondary-button">Discover techniques</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img
+          src="https://ik.imagekit.io/sh4dd0/636766834861188974.jpeg"
+          alt="Social Engineer: Your firewall isn't the weakest link, you are">
+      </div>
+      <div class="hero-bottom">
+        <span>01 — UNDERSTAND</span><span>02 — RECOGNIZE</span><span>03 — PROTECT</span>
+      </div>
+    </header>
+
+    <section id="about" class="about section">
+      <p class="eyebrow">01 / THE CONCEPT</p>
+      <h2>What is <span>Social Engineering?</span></h2>
+      <p class="about-text">
+        Social engineering is a form of manipulation in which attackers exploit
+        human psychology rather than relying solely on technical vulnerabilities.
+        They use trust, fear, urgency, curiosity and authority to persuade people
+        to perform actions that compromise security.
+      </p>
+      <div class="stat-grid">
+        <div><h3>01</h3><p>Build trust</p></div>
+        <div><h3>02</h3><p>Exploit emotions</p></div>
+        <div><h3>03</h3><p>Influence decisions</p></div>
+        <div><h3>04</h3><p>Gain access</p></div>
+      </div>
+    </section>
+
+    <section id="techniques" class="techniques section">
+      <p class="eyebrow">02 / ATTACK VECTORS</p>
+      <h2>Know the <span>techniques.</span></h2>
+      <p class="section-description">Social engineers use different approaches depending on their target and objective.</p>
+      <div class="technique-grid">
+        <article class="technique-card"><span class="card-number">01</span><span class="card-tag">DIGITAL</span><h3>Phishing</h3><p>Fraudulent emails, messages or websites designed to trick people into revealing sensitive information.</p></article>
+        <article class="technique-card"><span class="card-number">02</span><span class="card-tag">MANIPULATION</span><h3>Pretexting</h3><p>Creating a believable false identity or scenario to convince someone to disclose information.</p></article>
+        <article class="technique-card"><span class="card-number">03</span><span class="card-tag">DECEPTION</span><h3>Baiting</h3><p>Offering something attractive, such as free software or a USB drive, to encourage unsafe actions.</p></article>
+        <article class="technique-card"><span class="card-number">04</span><span class="card-tag">PHYSICAL</span><h3>Tailgating</h3><p>Following an authorized person into a restricted physical location without proper permission.</p></article>
+        <article class="technique-card"><span class="card-number">05</span><span class="card-tag">IDENTITY</span><h3>Impersonation</h3><p>Pretending to be a trusted individual, colleague or authority figure to gain someone's trust.</p></article>
+        <article class="technique-card"><span class="card-number">06</span><span class="card-tag">VOICE</span><h3>Vishing</h3><p>Using phone calls or voice messages to manipulate victims into revealing confidential information.</p></article>
+      </div>
+    </section>
+
+    <section id="defense" class="defense section">
+      <p class="eyebrow">03 / DEFENSIVE SECURITY</p>
+      <h2>Don't become <span>the entry point.</span></h2>
+      <div class="defense-grid">
+        <div><h3>Verify identities</h3><p>Confirm requests through trusted channels, especially when money or sensitive information is involved.</p></div>
+        <div><h3>Question urgency</h3><p>Attackers often create panic to prevent you from thinking carefully before acting.</p></div>
+        <div><h3>Protect credentials</h3><p>Never share passwords, authentication codes or confidential access information.</p></div>
+        <div><h3>Report suspicious activity</h3><p>Notify the appropriate security personnel when something feels unusual.</p></div>
+      </div>
+
+      <div class="checklist">
+        <h3>Quick security check</h3>
+        <label><input type="checkbox"> I verify unexpected requests using a separate, trusted contact method.</label>
+        <label><input type="checkbox"> I avoid opening unexpected links or attachments.</label>
+        <label><input type="checkbox"> I never share passwords or one-time authentication codes.</label>
+        <label><input type="checkbox"> I pause when a message pressures me to act immediately.</label>
+        <p class="checklist-status" id="checklistStatus" aria-live="polite">0 OF 4 CHECKS COMPLETED</p>
+      </div>
+    </section>
+
+    <footer>
+      <a href="#" class="logo"><span>SE</span> / AWARE</a>
+      <p>Your security is only as strong as your awareness.</p>
+      <span class="copyright">© 2026 SE / AWARE. EDUCATE. RECOGNIZE. PROTECT.</span>
+    </footer>
+  </div>
+
+  <script>
+    const checks = document.querySelectorAll('.checklist input[type="checkbox"]');
+    const status = document.getElementById('checklistStatus');
+
+    function updateChecklist() {
+      const completed = [...checks].filter(check => check.checked).length;
+      status.textContent = `${completed} OF ${checks.length} CHECKS COMPLETED`;
+    }
+
+    checks.forEach(check => check.addEventListener('change', updateChecklist));
+  </script>
+</body>
+</html>
